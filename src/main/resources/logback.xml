@@ -14,7 +14,7 @@
 	<appender name="errors-log"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<append>true</append>
-		<file>~/cloudunit-errors.log</file>
+		<file>cloudunit-errors.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<maxHistory>30</maxHistory>
 			<fileNamePattern>${pathDir}/logFile.%d{yyyy-MM-dd}.log
