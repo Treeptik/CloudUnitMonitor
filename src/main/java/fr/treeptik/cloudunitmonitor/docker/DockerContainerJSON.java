@@ -45,7 +45,7 @@ public class DockerContainerJSON {
 		URI uri = null;
 		DockerContainer dockerContainer = new DockerContainer();
 		try {
-			uri = new URIBuilder().setScheme("http").setHost(hostIp)
+			uri = new URIBuilder().setScheme("https").setHost(hostIp)
 					.setPath("/containers/" + name + "/json").build();
 			JsonResponse jsonResponse = null;
 
@@ -175,7 +175,7 @@ public class DockerContainerJSON {
 		List<DockerContainer> listContainers = new ArrayList<>();
 		try {
 
-			uri = new URIBuilder().setScheme("http").setHost(hostAddress)
+			uri = new URIBuilder().setScheme("https").setHost(hostAddress)
 					.setPath("/containers/json").build();
 
 			if (logger.isDebugEnabled()) {
@@ -250,7 +250,7 @@ public class DockerContainerJSON {
 		URI uri = null;
 		try {
 			uri = new URIBuilder()
-					.setScheme("http")
+					.setScheme("https")
 					.setHost(hostIp)
 					.setPath(
 							"/containers/" + dockerContainer.getName()
@@ -352,7 +352,7 @@ public class DockerContainerJSON {
 		URI uri = null;
 		try {
 			uri = new URIBuilder()
-					.setScheme("http")
+					.setScheme("https")
 					.setHost(hostIp)
 					.setPath(
 							"/containers/" + dockerContainer.getName()
