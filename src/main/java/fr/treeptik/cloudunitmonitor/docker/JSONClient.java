@@ -34,7 +34,7 @@ public class JSONClient {
 
     private Logger logger = Logger.getLogger(JSONClient.class);
 
-    private String certsDirPath = System.getenv("HOME") + "/CloudUnit/conf/cert/dev";
+    private String certsDirPath = System.getenv("HOME") + "/cloudunit/conf/cert/dev";
 
     private String dockerEndpointMode = "https";
 
