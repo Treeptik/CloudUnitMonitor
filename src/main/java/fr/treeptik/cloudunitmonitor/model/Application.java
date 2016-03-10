@@ -104,6 +104,20 @@ public class Application
 
     private boolean isAClone;
 
+    public String getCuInstanceName() {
+        return cuInstanceName;
+    }
+
+    public void setCuInstanceName(String cuInstanceName) {
+        this.cuInstanceName = cuInstanceName;
+    }
+
+    /**
+     * CloudUnit instance name (e.g. DEV, QA, PROD).
+     */
+
+    private String cuInstanceName;
+
     public Application()
     {
         super();

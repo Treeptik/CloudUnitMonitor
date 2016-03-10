@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 
+import fr.treeptik.cloudunitmonitor.conf.ApplicationEntryPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -294,11 +295,13 @@ public class HealthMonitor {
 	}
 
 	private DockerContainer buildContainerName(Server server) {
-		return new DockerContainerBuilder().withName(server.getName()).build();
+		logger.info(ApplicationEntryPoint.INSTANCE+"-"+server.getName());
+		return new DockerContainerBuilder().withName(ApplicationEntryPoint.INSTANCE+"-"+server.getName()).build();
 	}
 
 	private DockerContainer buildContainerName(Module module) {
-		return new DockerContainerBuilder().withName(module.getName()).build();
+		logger.info(ApplicationEntryPoint.INSTANCE+"-"+module.getName());
+		return new DockerContainerBuilder().withName(ApplicationEntryPoint.INSTANCE+"-"+module.getName()).build();
 	}
 
 }
