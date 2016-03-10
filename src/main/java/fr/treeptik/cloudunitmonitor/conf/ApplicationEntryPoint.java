@@ -22,6 +22,7 @@ public class ApplicationEntryPoint
     public static String IP_MYSQL = null;
     public static String IP_REDIS = null;
     public static String MYSQL_PASSWORD = null;
+    public static String INSTANCE = null;
 
     public static void main( String[] args )
         throws ServiceException, MessagingException, IOException, InterruptedException
@@ -30,10 +31,12 @@ public class ApplicationEntryPoint
         IP_MYSQL = args[0];
         MYSQL_PASSWORD = args[1];
         IP_REDIS = args[2];
+        INSTANCE = args[3];
 
         logger.info( "First argument (ip mysql) : " + IP_MYSQL );
         logger.info( "Second argument (password mysql) : " + IP_REDIS );
         logger.info( "Third argument (ip redis) : " + MYSQL_PASSWORD );
+        logger.info( "Four argument (instance) : " + INSTANCE );
 
         instanceName = InetAddress.getLocalHost().getHostName();
 
