@@ -1,6 +1,5 @@
 package fr.treeptik.cloudunitmonitor.model;
 
-import fr.treeptik.cloudunitonitor.model.action.GitModuleAction;
 import fr.treeptik.cloudunitonitor.model.action.ModuleAction;
 import fr.treeptik.cloudunitonitor.model.action.MongoModuleAction;
 import fr.treeptik.cloudunitonitor.model.action.MysqlModuleAction;
@@ -32,8 +31,7 @@ public class ModuleFactory {
 	 */
 	public static Module updateModule(Module module) {
 
-		module.setModuleAction(getModuleAction(module.getImage().getName(),
-				module));
+		module.setModuleAction(getModuleAction(module.getImage().getName(), module));
 
 		return module;
 	}
@@ -46,8 +44,6 @@ public class ModuleFactory {
 			result = new MysqlModuleAction(module);
 		} else if (imageName.toLowerCase().contains("postgresql")) {
 			result = new PostgreSQLModuleAction(module);
-		} else if (imageName.toLowerCase().contains("git")) {
-			result = new GitModuleAction(module);
 		} else if (imageName.toLowerCase().contains("mongo")) {
 			result = new MongoModuleAction(module);
 		} else if (imageName.toLowerCase().contains("redis")) {

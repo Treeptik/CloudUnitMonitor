@@ -21,70 +21,56 @@ import fr.treeptik.cloudunitmonitor.utils.ContainerMapper;
 import fr.treeptik.cloudunitmonitor.utils.HipacheRedisUtils;
 
 @Service
-public class ServerService
-{
+public class ServerService {
 
-    @Inject
-    private ServerDAO serverDAO;
+	@Inject
+	private ServerDAO serverDAO;
 
-    @Inject
-    private HipacheRedisUtils hipacheRedisUtils;
+	@Inject
+	private HipacheRedisUtils hipacheRedisUtils;
 
-    @Inject
-    private ContainerMapper containerMapper;
+	@Inject
+	private ContainerMapper containerMapper;
 
-    public List<Server> findAll()
-        throws ServiceException
-    {
-        try
-        {
-            return serverDAO.findAll();
-        }
-        catch ( DataAccessException e )
-        {
-            throw new ServiceException( "error find all servers", e );
-        }
-    }
+	public List<Server> findAll() throws ServiceException {
+		try {
+			return serverDAO.findAll();
+		} catch (DataAccessException e) {
+			throw new ServiceException("error find all servers", e);
+		}
+	}
 
-    @Transactional
-    public Server startServer( Server server )
-        throws ServiceException
-    {
+	@Transactional
+	public Server startServer(Server server) throws ServiceException {
 
-        String redisIp = ApplicationEntryPoint.IP_REDIS;
+		String redisIp = ApplicationEntryPoint.IP_REDIS;
 
-        try
-        {
-            Application application = server.getApplication();
+		try {
+			Application application = server.getApplication();
 
-            DockerContainer dockerContainer = new DockerContainer();
-            dockerContainer.setName( server.getName() );
-            dockerContainer.setImage( server.getImage().getName() );
+			DockerContainer dockerContainer = new DockerContainer();
+			dockerContainer.setName(server.getName());
+			dockerContainer.setImage(server.getImage().getName());
 
-            DockerContainer.start( dockerContainer, application.getManagerIp() );
-            dockerContainer = DockerContainer.findOne( dockerContainer, application.getManagerIp() );
+			DockerContainer.start(dockerContainer, application.getManagerIp());
+			dockerContainer = DockerContainer.findOne(dockerContainer, application.getManagerIp());
 
-            server = containerMapper.mapDockerContainerToServer( dockerContainer, server );
+			server = containerMapper.mapDockerContainerToServer(dockerContainer, server);
 
-            server.setStartDate( new Date() );
+			server.setStartDate(new Date());
 
-            server = serverDAO.saveAndFlush( server );
+			server = serverDAO.saveAndFlush(server);
 
-            hipacheRedisUtils.updateServerAddress( server.getApplication(), redisIp, server.getContainerIP(),
-                                                   server.getServerAction().getServerPort(),
-                                                   server.getServerAction().getServerManagerPort() );
+			hipacheRedisUtils.updateServerAddress(server.getApplication(), redisIp, server.getContainerIP(),
+					server.getServerAction().getServerPort(), server.getServerAction().getServerManagerPort());
 
-        }
-        catch ( PersistenceException e )
-        {
+		} catch (PersistenceException e) {
 
-            throw new ServiceException( "Error database :  " + e.getLocalizedMessage(), e );
-        }
-        catch ( DockerJSONException e )
-        {
+			throw new ServiceException("Error database :  " + e.getLocalizedMessage(), e);
+		} catch (DockerJSONException e) {
 
-            throw new ServiceException( "Error docker :  " + e.getLocalizedMessage(), e );
-        }
-        return server;
-    }
+			throw new ServiceException("Error docker :  " + e.getLocalizedMessage(), e);
+		}
+		return server;
+	}
 }

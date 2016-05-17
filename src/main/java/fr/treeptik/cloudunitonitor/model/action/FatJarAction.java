@@ -15,7 +15,6 @@
 
 package fr.treeptik.cloudunitonitor.model.action;
 
-
 import fr.treeptik.cloudunitmonitor.model.Server;
 
 /**
@@ -23,25 +22,24 @@ import fr.treeptik.cloudunitmonitor.model.Server;
  */
 public class FatJarAction extends ServerAction {
 
+	private static final long serialVersionUID = 1L;
 
-    public FatJarAction(Server parent) {
-        super(parent);
-    }
+	public FatJarAction(Server parent) {
+		super(parent);
+	}
 
-    @Override
-    public String getServerManagerPath() {
-        return "";
-    }
+	@Override
+	public String getServerManagerPath() {
+		return "";
+	}
 
-    @Override
-    public String getServerManagerPort() {
-        return "";
-    }
+	@Override
+	public String getServerManagerPort() {
+		return "";
+	}
 
-    @Override
-    public String getServerPort() {
-        return "";
-    }
+	@Override
+	public String getServerPort() {
+		return "";
+	}
 }
-
-

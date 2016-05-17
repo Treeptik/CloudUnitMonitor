@@ -28,108 +28,91 @@ import javax.persistence.Transient;
 import fr.treeptik.cloudunitonitor.model.action.ServerAction;
 
 @Entity
-public class Server
-    extends Container
-    implements Serializable
-{
+public class Server extends Container implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Long jvmMemory;
+	private Long jvmMemory;
 
-    private String jvmOptions;
+	private String jvmOptions;
 
-    private String jvmRelease;
+	private String jvmRelease;
 
-    private String managerLocation;
+	private String managerLocation;
 
-    @ElementCollection
-    private List<String> links;
+	@ElementCollection
+	private List<String> links;
 
-    @Transient
-    private ServerAction serverAction;
+	@Transient
+	private ServerAction serverAction;
 
-    public Server( Integer id, Date startDate, String name, String containerID, Long memorySize, String containerIP,
-                   String dockerState, Status status, Image image, Map<String, String> listPorts )
-    {
-        super();
-        this.id = id;
-        this.startDate = startDate;
-        this.name = name;
-        this.containerID = containerID;
-        this.memorySize = memorySize;
-        this.containerIP = containerIP;
-        this.dockerState = dockerState;
-        this.status = status;
-        this.image = image;
-    }
+	public Server(Integer id, Date startDate, String name, String containerID, Long memorySize, String containerIP,
+			String dockerState, Status status, Image image, Map<String, String> listPorts) {
+		super();
+		this.id = id;
+		this.startDate = startDate;
+		this.name = name;
+		this.containerID = containerID;
+		this.memorySize = memorySize;
+		this.containerIP = containerIP;
+		this.dockerState = dockerState;
+		this.status = status;
+		this.image = image;
+	}
 
-    public Server()
-    {
-    }
+	public Server() {
+	}
 
-    @PostLoad
-    public void initServerActionFromJPA()
-    {
-        ServerFactory.updateServer( this );
-    }
+	@PostLoad
+	public void initServerActionFromJPA() {
+		ServerFactory.updateServer(this);
+	}
 
-    public Long getJvmMemory()
-    {
-        return jvmMemory;
-    }
+	public Long getJvmMemory() {
+		return jvmMemory;
+	}
 
-    public void setJvmMemory( Long jvmMemory )
-    {
-        this.jvmMemory = jvmMemory;
-    }
+	public void setJvmMemory(Long jvmMemory) {
+		this.jvmMemory = jvmMemory;
+	}
 
-    public String getJvmOptions()
-    {
-        return jvmOptions;
-    }
+	public String getJvmOptions() {
+		return jvmOptions;
+	}
 
-    public void setJvmOptions( String opts )
-    {
-        this.jvmOptions = opts;
-    }
+	public void setJvmOptions(String opts) {
+		this.jvmOptions = opts;
+	}
 
-    public String getManagerLocation()
-    {
-        return managerLocation;
-    }
+	public String getManagerLocation() {
+		return managerLocation;
+	}
 
-    public void setManagerLocation( String managerLocation )
-    {
-        this.managerLocation = managerLocation;
-    }
+	public void setManagerLocation(String managerLocation) {
+		this.managerLocation = managerLocation;
+	}
 
-    public ServerAction getServerAction()
-    {
-        return serverAction;
-    }
+	public ServerAction getServerAction() {
+		return serverAction;
+	}
 
-    public void setServerAction( ServerAction serverAction )
-    {
-        this.serverAction = serverAction;
-    }
+	public void setServerAction(ServerAction serverAction) {
+		this.serverAction = serverAction;
+	}
 
-    public String getJvmRelease()
-    {
-        return jvmRelease;
-    }
+	public String getJvmRelease() {
+		return jvmRelease;
+	}
 
-    public void setJvmRelease( String jvmRelease )
-    {
-        this.jvmRelease = jvmRelease;
-    }
+	public void setJvmRelease(String jvmRelease) {
+		this.jvmRelease = jvmRelease;
+	}
 
-    @Override
-    public String toString()
-    {
-        return "Server [id=" + id + ", startDate=" + startDate + ", name=" + name + ", cloudId=" + containerID
-            + ", memorySize=" + memorySize + ", containerIP=" + containerIP + ", dockerState=" + dockerState
-            + ", image=" + image + ", status=" + status + "]";
-    }
+	@Override
+	public String toString() {
+		return "Server [id=" + id + ", startDate=" + startDate + ", name=" + name + ", cloudId=" + containerID
+				+ ", memorySize=" + memorySize + ", containerIP=" + containerIP + ", dockerState=" + dockerState
+				+ ", image=" + image + ", status=" + status + "]";
+	}
 
 }

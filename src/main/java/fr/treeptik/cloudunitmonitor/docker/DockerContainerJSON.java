@@ -21,6 +21,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 
+import fr.treeptik.cloudunitmonitor.conf.ApplicationEntryPoint;
 import fr.treeptik.cloudunitmonitor.docker.model.DockerContainer;
 import fr.treeptik.cloudunitmonitor.exception.DockerJSONException;
 import fr.treeptik.cloudunitmonitor.exception.ErrorDockerJSONException;
@@ -45,7 +46,7 @@ public class DockerContainerJSON {
 		URI uri = null;
 		DockerContainer dockerContainer = new DockerContainer();
 		try {
-			uri = new URIBuilder().setScheme("https").setHost(hostIp)
+			uri = new URIBuilder().setScheme(ApplicationEntryPoint.MODE).setHost(hostIp)
 					.setPath("/containers/" + name + "/json").build();
 			JsonResponse jsonResponse = null;
 
@@ -175,7 +176,7 @@ public class DockerContainerJSON {
 		List<DockerContainer> listContainers = new ArrayList<>();
 		try {
 
-			uri = new URIBuilder().setScheme("https").setHost(hostAddress)
+			uri = new URIBuilder().setScheme(ApplicationEntryPoint.MODE).setHost(hostAddress)
 					.setPath("/containers/json").build();
 
 			if (logger.isDebugEnabled()) {
@@ -250,7 +251,7 @@ public class DockerContainerJSON {
 		URI uri = null;
 		try {
 			uri = new URIBuilder()
-					.setScheme("https")
+					.setScheme(ApplicationEntryPoint.MODE)
 					.setHost(hostIp)
 					.setPath(
 							"/containers/" + dockerContainer.getName()
@@ -352,7 +353,7 @@ public class DockerContainerJSON {
 		URI uri = null;
 		try {
 			uri = new URIBuilder()
-					.setScheme("https")
+					.setScheme(ApplicationEntryPoint.MODE)
 					.setHost(hostIp)
 					.setPath(
 							"/containers/" + dockerContainer.getName()

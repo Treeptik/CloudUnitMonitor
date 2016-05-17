@@ -12,56 +12,60 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import fr.treeptik.cloudunitmonitor.exception.ServiceException;
 import fr.treeptik.cloudunitmonitor.service.HealthMonitor;
 
-public class ApplicationEntryPoint
-{
+public class ApplicationEntryPoint {
 
-    public static String instanceName = "";
+	public static String instanceName = "";
 
-    private static Logger logger = LoggerFactory.getLogger( ApplicationEntryPoint.class );
+	private static Logger logger = LoggerFactory.getLogger(ApplicationEntryPoint.class);
 
-    public static String IP_MYSQL = null;
-    public static String IP_REDIS = null;
-    public static String MYSQL_PASSWORD = null;
-    public static String INSTANCE = null;
+	public static String IP_MYSQL = null;
+	public static String IP_REDIS = null;
+	public static String MYSQL_PASSWORD = null;
+	public static String INSTANCE = null;
+	public static String MODE = null;
 
-    public static void main( String[] args )
-        throws ServiceException, MessagingException, IOException, InterruptedException
-    {
+	public static void main(String[] args)
+			throws ServiceException, MessagingException, IOException, InterruptedException {
 
-        IP_MYSQL = args[0];
-        MYSQL_PASSWORD = args[1];
-        IP_REDIS = args[2];
-        INSTANCE = args[3];
+		IP_MYSQL = args[0];
+		MYSQL_PASSWORD = args[1];
+		IP_REDIS = args[2];
+		INSTANCE = args[3];
+		MODE = args[4];
 
-        logger.info( "First argument (ip mysql) : " + IP_MYSQL );
-        logger.info( "Second argument (password mysql) : " + IP_REDIS );
-        logger.info( "Third argument (ip redis) : " + MYSQL_PASSWORD );
-        logger.info( "Four argument (instance) : " + INSTANCE );
+		logger.info("First argument (ip mysql) : " + IP_MYSQL);
+		logger.info("Second argument (password mysql) : " + IP_REDIS);
+		logger.info("Third argument (ip redis) : " + MYSQL_PASSWORD);
+		logger.info("Four argument (instance) : " + INSTANCE);
+		logger.info("Four argument (mode) : " + MODE);
 
-        instanceName = InetAddress.getLocalHost().getHostName();
+		if (args.length < 5) {
+			logger.error("One parameter is missing : ");
+			System.exit(1);
+		}
 
-        @SuppressWarnings( "resource" )
-        AnnotationConfigApplicationContext annotationConfigApplicationContext =
-            new AnnotationConfigApplicationContext( ApplicationConfiguration.class );
-        HealthMonitor healthMonitor = (HealthMonitor) annotationConfigApplicationContext.getBean( "healthMonitor" );
+		instanceName = InetAddress.getLocalHost().getHostName();
 
-        logger.debug( "****Checking containers****" );
+		@SuppressWarnings("resource")
+		AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(
+				ApplicationConfiguration.class);
+		HealthMonitor healthMonitor = (HealthMonitor) annotationConfigApplicationContext.getBean("healthMonitor");
 
-        int status = 0;
-        for ( int i = 0; i < 5; i++ )
-        {
+		logger.debug("****Checking containers****");
 
-            Thread.sleep( 1000 );
+		int status = 0;
+		for (int i = 0; i < 5; i++) {
 
-            int realStatus = healthMonitor.checkAllServersAndModules();
+			Thread.sleep(1000);
 
-            if ( realStatus > status )
-            {
-                status = realStatus;
-            }
-        }
+			int realStatus = healthMonitor.checkAllServersAndModules();
 
-        System.exit( status );
+			if (realStatus > status) {
+				status = realStatus;
+			}
+		}
 
-    }
+		System.exit(status);
+
+	}
 }
